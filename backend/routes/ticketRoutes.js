@@ -4,7 +4,6 @@ const Ticket = require('../models/Ticket');
 const User = require('../models/User');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// Middleware to check if user is an operator
 const isOperator = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
@@ -51,7 +50,6 @@ router.post('/', authMiddleware, isOperator, async (req, res) => {
 });
 
 
-// Get all tickets (only for operators)
 router.get('/:id', authMiddleware, async (req, res) => {
     try {
       const ticket = await Ticket.findById(req.params.id).populate('reservation_id train_id');

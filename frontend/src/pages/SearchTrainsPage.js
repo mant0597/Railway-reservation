@@ -5,10 +5,10 @@ const SearchTrainsPage = () => {
   const [trains, setTrains] = useState([]);
   const [sourceStation, setSourceStation] = useState('');
   const [destinationStation, setDestinationStation] = useState('');
-  const [shouldSearch, setShouldSearch] = useState(false); // Add this state to control when to search
+  const [shouldSearch, setShouldSearch] = useState(false);
 
   const handleSearch = async () => {
-    setShouldSearch(true); // Trigger the search when the button is clicked
+    setShouldSearch(true); 
   };
 
   useEffect(() => {

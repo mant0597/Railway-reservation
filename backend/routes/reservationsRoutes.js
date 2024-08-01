@@ -4,20 +4,16 @@ const Reservation = require('../models/Reservation');
 const Train = require('../models/Train');
 const Station = require('../models/Station');
 const User = require('../models/User');
-const authMiddleware = require('../middleware/authMiddleware'); // Middleware to check authentication
-const isRole = require('../middleware/roleMiddleware'); // Middleware to check user role
-
-// Book a ticket (only for regular users)
+const authMiddleware = require('../middleware/authMiddleware');
+const isRole = require('../middleware/roleMiddleware');
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { train_id, source_station, destination_station, journey_date, passengers } = req.body;
-    const user_id = req.user.id; // Get user ID from the token
+    const user_id = req.user.id; 
 
-    // Check if train exists
     const train = await Train.findById(train_id);
     if (!train) return res.status(404).json({ message: 'Train not found' });
 
-    // Create a new reservation
     const newReservation = new Reservation({
       user_id,
       train_id,
@@ -36,7 +32,6 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-// Cancel a reservation (only the user who made the reservation can cancel it)
 router.put('/:id/cancel', authMiddleware, async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.id);
@@ -53,7 +48,6 @@ router.put('/:id/cancel', authMiddleware, async (req, res) => {
   }
 });
 
-// Get reservations for a user
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const reservations = await Reservation.find({ user_id: req.user.id }).populate('train_id source_station destination_station');

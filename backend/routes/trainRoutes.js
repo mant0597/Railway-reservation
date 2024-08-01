@@ -6,7 +6,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 const isOperator = require('../middleware/roleMiddleware').bind(null, 'operator');
 const Station = require('../models/Station');
 
-// Create a new train (only for operators)
 router.post('/', authMiddleware, isOperator, async (req, res) => {
   try {
     const { train_number, name, type, source_station, destination_station, departure_time, arrival_time, days_of_operation } = req.body;
@@ -34,9 +33,6 @@ router.post('/', authMiddleware, isOperator, async (req, res) => {
   }
 });
 
-// Get trains based on source and destination stations
-// Get trains based on source and destination stations
-// Get trains based on source and destination stations
 router.get('/', authMiddleware, async (req, res) => {
     try {
       const { sourceStation, destinationStation } = req.query;
@@ -44,16 +40,10 @@ router.get('/', authMiddleware, async (req, res) => {
       if (!sourceStation || !destinationStation) {
         return res.status(400).json({ message: 'Source and destination stations are required' });
       }
-  
-      // Log query parameters
-      console.log('Source Station:', sourceStation);
-      console.log('Destination Station:', destinationStation);
-  
-      // Fetch station documents
+
       const sourceStationDoc = await Station.findOne({ city: sourceStation });
       const destinationStationDoc = await Station.findOne({ city: destinationStation });
   
-      // Log the documents fetched
       console.log('Source Station Document:', sourceStationDoc);
       console.log('Destination Station Document:', destinationStationDoc);
   
@@ -73,8 +63,6 @@ router.get('/', authMiddleware, async (req, res) => {
     }
   });
   
-  
-// Update a train (only for operators)
 router.put('/:id', authMiddleware, isOperator, async (req, res) => {
   try {
     const { train_number, name, type, source_station, destination_station, departure_time, arrival_time, days_of_operation } = req.body;
@@ -99,7 +87,6 @@ router.put('/:id', authMiddleware, isOperator, async (req, res) => {
   }
 });
 
-// Get a train by ID
 router.get('/:id', async (req, res) => {
   try {
     const train = await Train.findById(req.params.id).populate('source_station destination_station');

@@ -9,14 +9,13 @@ const TrainPage = () => {
   useEffect(() => {
     const fetchUserRole = async () => {
       try {
-        // Fetch user role from the backend
         const response = await axios.get('http://localhost:5000/api/users/me', {
           headers: {
             'x-auth-token': localStorage.getItem('token')
           }
         });
   
-        console.log('User role:', response.data.role); // Debugging line
+        console.log('User role:', response.data.role);
   
         setRole(response.data.role);
   
@@ -27,7 +26,7 @@ const TrainPage = () => {
         }
       } catch (error) {
         console.error('Error fetching user role:', error);
-        // Handle errors appropriately, possibly redirect to login or an error page
+    
         navigate('/login');
       }
     };

@@ -4,7 +4,6 @@ const Station = require('../models/Station');
 const User = require('../models/User');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// Middleware to check if user is an operator
 const isOperator = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
@@ -18,12 +17,10 @@ const isOperator = async (req, res, next) => {
   }
 };
 
-// Create a station (only for operators)
 router.post('/addStation', authMiddleware, isOperator, async (req, res) => {
   try {
     const { station_code, name, city, state } = req.body;
     
-    // Validate required fields
     if (!station_code || !name || !city || !state) {
       return res.status(400).json({ message: 'All fields are required' });
     }
@@ -36,7 +33,6 @@ router.post('/addStation', authMiddleware, isOperator, async (req, res) => {
   }
 });
 
-// Get all stations (can be accessed by anyone or restricted to operators)
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const stations = await Station.find();
@@ -46,7 +42,6 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
-// Get a particular station by ID (can be accessed by anyone or restricted to operators)
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const station = await Station.findById(req.params.id);

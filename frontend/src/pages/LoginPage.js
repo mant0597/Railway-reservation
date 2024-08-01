@@ -19,11 +19,10 @@ const LoginPage = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/users/login', formData);
       if (response.status === 200) {
-        // Store the token in localStorage
+
         localStorage.setItem('x-auth-token', response.data.token);
         setSuccess('Login successful!');
-        // Redirect to another page or handle successful login
-        // For example: window.location.href = '/dashboard';
+     
       }
     } catch (error) {
       console.error('Error logging in:', error);
