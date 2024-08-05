@@ -9,7 +9,7 @@ const AboutPage = () => {
         Welcome to M-rail, your one-stop solution for all your railway reservation needs. Our platform is designed to provide a seamless and efficient way to book and manage your train tickets with just a few clicks.
       </p>
       <p>
-        At Namma-Baazar, we strive to offer the best user experience by integrating advanced technology and user-friendly features. Our system allows you to:
+        At MMJ-Train, we strive to offer the best user experience by integrating advanced technology and user-friendly features. Our system allows you to:
       </p>
       <ul>
         <li>Search and book train tickets easily.</li>
